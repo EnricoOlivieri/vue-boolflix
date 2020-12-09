@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Boolflix</title>
+    <script src="https://use.fontawesome.com/200c567139.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
@@ -10,31 +11,105 @@
   </head>
   <body>
 
-    <header>
-      <div class="container">
-        <img src="https://variety.com/wp-content/uploads/2020/05/netflix-logo.png" alt="logo" />
-      </div>
-    </header>
-
     <div id="root">
-      <div class="searchBar">
-        <input v-on:keydown.enter="getResult()" v-model="search" type="text" name="" value="">
-        <button @Click="getResult()" type="button" name="button">Cerca un film</button>
-      </div>
+      <header class="row">
+        <nav class="nav-container container">
+          <div class="logo" >
+            <img src="https://variety.com/wp-content/uploads/2020/05/netflix-logo.png" alt="logo" />
+          </div>
 
-      <ul class="moviesContainer container">
-        <li class="movie" v-for="movie in movies">
-          <h3>{{movieTitle}}</h3>
-          <h3>{{originalTitle}}</h3>
-          <span class="author">{{movieLanguage}}</span>
-          <span class="year">{{movieVote}}</span>
-        </li>
-      </ul>
-    </div>
+          <div class="search">
+            <input v-on:keydown.enter="getResult()" v-model="query" type="text" name="" value="">
+            <button @Click="getResult()"type="button" name="button">Cerca</button>
+          </div>
+        </nav>
+      </header>
+
+      <section class="container">
+        <h1>MOVIES</h1>
+        <div class="row movie-section">
+          <div class="arrow-container" @click="previousMoviesPage()"> <i class="fa fa-angle-left" aria-hidden="true"> </i> </div>
+          <ul id="movies-ul" class="movies-container row">
+            <li class="movie" v-for="movie in movies">
+              <div class="poster-container">
+                <img v-if="movie.poster_path" :src="getImage(movie.poster_path)" alt="">
+                <div  v-else class="subst-img"> <h3>{{movie.title}}</h3> <i class="fa fa-picture-o" aria-hidden="true"></i></div>
+              </div>
+              <div class="info-container">
+                <h3>{{movie.title}}</h3>
+                <h5>Original title: {{movie.original_title}}</h5>
+                <p> Overview: {{movie.overview}}</p>
+
+                <div class="stars-container">
+                  <ul class= "star-under">
+                    <li> <i class="fa fa-star-o" aria-hidden="true"></i> </li>
+                    <li> <i class="fa fa-star-o" aria-hidden="true"></i> </li>
+                    <li> <i class="fa fa-star-o" aria-hidden="true"></i> </li>
+                    <li> <i class="fa fa-star-o" aria-hidden="true"></i> </li>
+                    <li> <i class="fa fa-star-o" aria-hidden="true"></i> </li>
+                  </ul>
+
+                  <ul class="star-over" :style="starWidth(movie.vote_average)">
+                    <li> <i class="fa fa-star" aria-hidden="true"></i> </li>
+                    <li> <i class="fa fa-star" aria-hidden="true"></i> </li>
+                    <li> <i class="fa fa-star" aria-hidden="true"></i> </li>
+                    <li> <i class="fa fa-star" aria-hidden="true"></i> </li>
+                    <li> <i class="fa fa-star" aria-hidden="true"></i> </li>
+                  </ul>
+                </div>
+
+                <span >{{getFlag(movie.original_language)}}</span>
+              </div>
+            </li>
+          </ul>
+          <div class="arrow-container" @click="nextMoviesPage()"> <i class="fa fa-angle-right" aria-hidden="true"> </i> </div>
+        </div>
+      </section>
+
+      <section class="container">
+        <h1>SERIES</h1>
+        <div class="row movie-section">
+          <div class="arrow-container" @click="previousSeriesPage()"> <i class="fa fa-angle-left" aria-hidden="true"> </i> </div>
+          <ul id="series-ul" class="movies-container row">
+            <li class="movie" v-for="serie in series">
+              <div class="poster-container">
+                <img v-if="serie.poster_path" :src="getImage(serie.poster_path)" alt="">
+                <div  v-else class="subst-img"> <h3>{{serie.name}}</h3> <i class="fa fa-picture-o" aria-hidden="true"></i></div>
+              </div>
+              <div class="info-container">
+                <h3>{{serie.name}}</h3>
+                <h5>Original title: {{serie.original_name}}</h5>
+                <p> Overview: {{serie.overview}}</p>
+
+                <div class="stars-container">
+                  <ul class= "star-under">
+                    <li> <i class="fa fa-star-o" aria-hidden="true"></i> </li>
+                    <li> <i class="fa fa-star-o" aria-hidden="true"></i> </li>
+                    <li> <i class="fa fa-star-o" aria-hidden="true"></i> </li>
+                    <li> <i class="fa fa-star-o" aria-hidden="true"></i> </li>
+                    <li> <i class="fa fa-star-o" aria-hidden="true"></i> </li>
+                  </ul>
+
+                  <ul class="star-over" :style="starWidth(serie.vote_average)">
+                    <li> <i class="fa fa-star" aria-hidden="true"></i> </li>
+                    <li> <i class="fa fa-star" aria-hidden="true"></i> </li>
+                    <li> <i class="fa fa-star" aria-hidden="true"></i> </li>
+                    <li> <i class="fa fa-star" aria-hidden="true"></i> </li>
+                    <li> <i class="fa fa-star" aria-hidden="true"></i> </li>
+                  </ul>
+                </div>
+
+                <span>{{getFlag(serie.original_language)}}</span>
+              </div>
+            </li>
+          </ul>
+
+          <div class="arrow-container" @click="nextSeriesPage()"> <i class="fa fa-angle-right" aria-hidden="true"> </i> </div>
+        </div>
+      </section>
 
 
 
-
-    <script src="main.js" charset="utf-8"></script>
-  </body>
-  </html>
+      <script src="main.js" charset="utf-8"></script>
+    </body>
+    </html>

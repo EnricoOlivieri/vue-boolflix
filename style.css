@@ -5,65 +5,137 @@
   font-family: 'Lato', sans-serif;
 }
 
+h1{
+  text-align: center;
+  color: white;
+}
+
 body {
-  background-color: darkgray;
+  background: darkgray;
   min-height: 100vh;
 }
 
+span{
+  text-align: center;
+}
+
 .container {
-  width: 1070px;
-  height: 100%;
-  margin: 0 auto;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.row{
+  width: 100%;
+}
+
+.row::after{
+  content:"";
+  display: table;
+  clear: both;
+}
+
+.hide{
+  display: none;
 }
 
 header {
   width: 100%;
-  height: 100px;
-  background-color: black;
+  background: black;
 }
-header img {
+
+.nav-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo img{
+  margin: 10px;
   height: 80px;
-  margin-top: 10px;
 }
 
-.searchBar{
-  margin-top: 20px;
-  margin-left: 20px;
+.logo:hover img{
+  display: none;
 }
 
-.moviesContainer {
+.movie-section{
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  padding: 100px 0;
 }
 
-.movie {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: column;
-  flex-basis: 200px;
+.poster-container{
+  background-color: black;
+  height: 500px;
+  width: 350px;
+  border: 1px solid white;
+  overflow: hidden;
+}
+
+.info-container{
   padding: 20px;
-  margin: 10px 20px;
-  height: 360px;
-  background: rgb(46, 58, 70);
+  display: none;
+  flex-direction: column;
+  align-content: space-between;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 500px;
+  width: 342px;
+
+}
+
+li:hover .info-container{
+  display: flex;
+
+}
+
+li:hover .poster-container{
+  opacity: 0.5;
+}
+
+.subst-img{
   text-align: center;
 }
 
-.movie h3 {
-  margin: 20px 0;
+.movies-container{
+  display: flex;
+  overflow-x: scroll;
+  justify-content: space-between;
   color: white;
-  font-size: 22px;
-  text-transform: uppercase;
+  list-style: none;
 }
 
-.movie span.author {
-  color: grey;
-  font-size: 20px;
+.movie{
+  margin: 20px;
+  position: relative;
 }
 
-.movie span.year {
-  color: grey;
+.arrow-container{
+  height: 100%;
+  font-weight: 400;
+  font-size: 80px;
+  color: white;
+  padding: 20px;
+}
+
+.stars-container{
+  position: relative;
+  color: white;
+  width: 80px;
+  margin: auto;
+}
+
+.star-under, .star-over{
+  list-style: none;
+  display: flex;
+}
+
+.star-over{
+  position: absolute;
+  top: 0;
+  left: 0;
+  flex-wrap: nowrap;
+  overflow: hidden;
 }
